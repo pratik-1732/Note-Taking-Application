@@ -1,5 +1,7 @@
 import express from "express";
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -13,8 +15,8 @@ const sendOtp = async (toEmail, otp) => {
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to: toEmail,
-    subject: "otp verification code",
-    text: `Your otp for Note Taking application is ${otp}. Please enter it correctly and do not share it. It is valid for one minute.`,
+    subject: "OTP Verification Code",
+    text: `Your OTP for Note Taking application is ${otp}. Please enter it correctly and do not share it. It is valid for one minute.`,
   };
   await transporter.sendMail(mailOptions);
 };

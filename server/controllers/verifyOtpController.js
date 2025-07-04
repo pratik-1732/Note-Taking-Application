@@ -1,20 +1,29 @@
 import express from "express";
-import otp from "../models/otp.js";
+import Otp from "../models/otp.js";
 
 const verifyOtp = async (req, res) => {
-  const { email, enteredOtp } = req.body;
+  const { email, otp } = req.body;
+  if (!email || !otp) {
+    return res.status(400).json({ message: "Email and OTP required" });
+  }
 
   try {
-    const otpRecord = await otp.findOne({ email });
+    const otpRecord = await Otp.findOne({ email });
 
     if (!otpRecord)
-      return res.status(400).json({ message: "otp not found or expired" });
+      return res
+        .status(400)
+        .json({ message: "otp not found or expired", isVerified: false });
 
-    if (otpRecord.otp !== enteredOtp)
-      return res.status(400).json({ message: "invalid otp" });
+    if (otpRecord.otp !== otp)
+      return res
+        .status(400)
+        .json({ message: "invalid otp", isVerified: false });
 
-    await otp.deleteOne({ email });
-    res.status(200).json({ message: "otp verified successfully" });
+    await Otp.deleteOne({ email });
+    res
+      .status(200)
+      .json({ message: "otp verified successfully", isVerified: true });
   } catch (error) {
     res
       .status(500)
