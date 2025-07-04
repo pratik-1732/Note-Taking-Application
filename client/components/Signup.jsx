@@ -194,7 +194,7 @@ const Signup = () => {
             </div>
             <button
               type="submit"
-              disabled={isVerified}
+              disabled={!isVerified}
               className="w-full bg-blue-600 text-white text-base sm:text-lg font-medium sm:font-semibold py-3 px-2 rounded-lg  hover:bg-blue-700 cursor-pointer"
             >
               Sign up
