@@ -1,8 +1,36 @@
 import React from "react";
 import { Eye, EyeOff, Calendar } from "lucide-react";
 import Nav from "./Nav";
+import { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [otp, setOtp] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault;
+    console.log(name, email, dob, otp);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/signup`,
+        {
+          name,
+          email,
+          dob,
+        }
+      );
+      console.log(response);
+      setName("");
+      setEmail("");
+      setDob("");
+      setOtp("");
+    } catch (error) {
+      console.error("signup Error:", error);
+    }
+  };
   return (
     <div className=" sm:h-screen bg-white sm:flex sm:justify-between">
       <div className="left-col sm:w-[591px]">
@@ -28,8 +56,13 @@ const Signup = () => {
               </label>
               <input
                 type="text"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
                 className="w-full outline-blue-500 h-10 sm:h-12 px-4 py-3 border border-[#969696] rounded-md text-base sm:text-lg font-normal text-black"
                 placeholder="Jonas Khanwald"
+                required
               />
             </div>
             <div className="flex flex-col mb-3">
@@ -40,8 +73,13 @@ const Signup = () => {
                 <Calendar className=" text-gray-700 w-5 h-5 ml-2 cursor-pointer" />
                 <input
                   type="text"
+                  value={dob}
+                  onChange={(e) => {
+                    setDob(e.target.value);
+                  }}
                   className="w-full text-base sm:text-lg font-normal text-black outline-blue-500"
                   placeholder="date"
+                  required
                 />
               </div>
             </div>
@@ -51,13 +89,22 @@ const Signup = () => {
               </label>
               <input
                 type="text"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 className="w-full h-10 sm:h-12 px-4 py-3 border outline-blue-500 border-[#969696] rounded-md text-base sm:text-lg font-normal text-black"
                 placeholder="jonaskhanwald@gmail.com"
+                required
               />
             </div>
             <div className="mb-8 relative">
               <input
                 type="text"
+                value={otp}
+                onChange={(e) => {
+                  setOtp(e.target.value);
+                }}
                 className="w-full h-10 sm:h-12 px-4 py-3 border outline-blue-500 border-[#969696] rounded-md text-base sm:text-lg font-normal text-black"
                 placeholder="OTP"
               />
@@ -65,6 +112,7 @@ const Signup = () => {
             </div>
             <button
               type="button"
+              onClick={handleSubmit}
               className="w-full bg-blue-600 text-white text-base sm:text-lg font-medium sm:font-semibold py-3 sm:py-4 px-2 rounded-lg  hover:bg-blue-700 cursor-pointer"
             >
               Sign up
