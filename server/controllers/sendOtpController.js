@@ -1,0 +1,24 @@
+import express from "express";
+import Otp from "../models/otp.js";
+import sendOtp from "../utils/mailer.js";
+
+function generateOtp() {
+  return Math.floor(Math.random() * 900000).toString();
+}
+
+const sendOtpToMail = async (req, res) => {
+  const { email } = req.body;
+  const otp = generateOtp();
+  try {
+    await Otp.deleteMany({ email });
+    await Otp.create({ email, otp });
+    await sendOtp(email, otp);
+    res.status(200).json({ message: "otp sent successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to sent otp", error: error.message });
+  }
+};
+
+export default sendOtpToMail;
