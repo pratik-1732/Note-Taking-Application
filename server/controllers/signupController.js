@@ -3,7 +3,7 @@ import user from "../models/user.js";
 
 const signupUser = async (req, res) => {
   const { name, email, dob } = req.body;
-  console.log(name, email, dob);
+
   const newUser = await user.findOne({ email });
   if (!newUser) {
     await user.create({ name, email, dob });

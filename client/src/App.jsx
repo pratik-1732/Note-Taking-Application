@@ -2,12 +2,17 @@ import React from "react";
 import Signup from "../components/Signup";
 import Signin from "../components/Signin";
 import Dashboard from "../components/Dashboard";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
-    <div>
-      <Signin />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Signin />} />
+        <Route path="/" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 };
 

@@ -4,14 +4,29 @@ import axios from "axios";
 
 import Nav from "./Nav";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [isVerified, setIsVerified] = useState(false);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
+        { email }
+      );
+
+      alert(res.data.message);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log("login failed", err.message);
+      alert("Login failed");
+    }
   };
   const otpSend = async (e) => {
     e.preventDefault();
@@ -149,7 +164,10 @@ const Signin = () => {
             <div className="mt-6 text-center">
               <p className=" text-base sm:text-lg text-gray-600 font-normal">
                 Need an account?
-                <button className="text-blue-600 hover:text-blue-700 font-medium ml-1 underline cursor-pointer">
+                <button
+                  onClick={() => navigate("/")}
+                  className="text-blue-600 hover:text-blue-700 font-medium ml-1 underline cursor-pointer"
+                >
                   Create one
                 </button>
               </p>

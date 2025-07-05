@@ -3,6 +3,7 @@ import { Eye, EyeOff, Calendar } from "lucide-react";
 import Nav from "./Nav";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -10,6 +11,8 @@ const Signup = () => {
   const [dob, setDob] = useState("");
   const [otp, setOtp] = useState("");
   const [isVerified, setIsVerified] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,11 +37,12 @@ const Signup = () => {
           dob,
         }
       );
-      console.log(response);
+
       setName("");
       setEmail("");
       setDob("");
       setOtp("");
+      navigate("/dashboard");
     } catch (error) {
       console.error("signup Error:", error);
     }
@@ -202,7 +206,10 @@ const Signup = () => {
           <div className="mt-4 text-center">
             <p className="text-base sm:text-lg text-gray-600 font-normal">
               Already have an account??
-              <button className="text-blue-600 hover:text-blue-700 font-medium ml-2 underline cursor-pointer">
+              <button
+                onClick={() => navigate("/login")}
+                className="text-blue-600 hover:text-blue-700 font-medium ml-2 underline cursor-pointer"
+              >
                 Sign in
               </button>
             </p>
