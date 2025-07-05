@@ -20,6 +20,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cookieParser());
+console.log("FRONTEND_URL env:", process.env.FRONTEND_URL);
+
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
