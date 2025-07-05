@@ -9,7 +9,7 @@ const createNote = async (req, res) => {
   }
   try {
     const newNote = await Note.create({ content });
-    console.log(newNote);
+
     await User.findByIdAndUpdate(
       userId,
       {

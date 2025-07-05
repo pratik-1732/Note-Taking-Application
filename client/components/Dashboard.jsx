@@ -19,7 +19,7 @@ const Dashboard = () => {
         const res = await axios.get(
           `${import.meta.env.VITE_API_BASE_URL}/api/dashboard/${userId}`
         );
-        console.log(res.data);
+       
         setUserInfo(res.data);
       } catch (error) {
         console.error("Error fetching dashboard info:", error);

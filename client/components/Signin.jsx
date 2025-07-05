@@ -22,8 +22,8 @@ const Signin = () => {
       );
 
       navigate(`/dashboard/${res.data.userId}`);
-    } catch (err) {
-      console.log("login failed", err.message);
+    } catch (error) {
+      console.error("login failed", error.message);
       alert("Login failed");
     }
   };
