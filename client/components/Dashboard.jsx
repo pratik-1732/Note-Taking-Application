@@ -1,7 +1,7 @@
 import React from "react";
 import Cards from "./Cards";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Popup from "./popup";
@@ -13,13 +13,15 @@ const Dashboard = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [noteContent, setNoteContent] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const res = await axios.get(
           `${import.meta.env.VITE_API_BASE_URL}/api/dashboard/${userId}`
         );
-       
+
         setUserInfo(res.data);
       } catch (error) {
         console.error("Error fetching dashboard info:", error);
@@ -27,6 +29,18 @@ const Dashboard = () => {
     };
     fetchUserInfo();
   }, [userId]);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`, {
+        withCredentials: true,
+      });
+      navigate("/signup");
+    } catch (error) {
+      console.error("Logout error:", error);
+      alert("Failed to logout");
+    }
+  };
   return (
     <div>
       <nav className="flex justify-between items-center py-3 px-4 sm:py-5 sm:px-15 ">
@@ -35,7 +49,10 @@ const Dashboard = () => {
           <h1 className=" text-2xl sm:text-4xl font-semibold">Dashboard</h1>
         </div>
         <div>
-          <button className="text-blue-600 underline font-medium text-lg sm:text-white cursor-pointer sm:text-xl sm:font-medium sm:bg-blue-600 sm:px-4 sm:py-2 sm:rounded-md">
+          <button
+            onClick={handleLogout}
+            className="text-blue-600 underline sm:no-underline font-medium text-lg sm:text-white cursor-pointer sm:text-xl sm:font-medium sm:bg-blue-600 sm:px-4 sm:py-2 sm:rounded-md"
+          >
             Sign out
           </button>
         </div>
