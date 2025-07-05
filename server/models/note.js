@@ -1,21 +1,17 @@
 import mongoose from "mongoose";
-import user from "./user.js";
+import User from "./user.js";
 
 const noteSchema = mongoose.Schema({
   content: {
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-    required: true,
-  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
   },
 });
 
-const note = mongoose.model("note", noteSchema);
+const note = mongoose.model("Note", noteSchema);
 
 export default note;

@@ -1,15 +1,15 @@
 import express from "express";
-import user from "../models/user.js";
+import User from "../models/user.js";
 
 const signupUser = async (req, res) => {
   const { name, email, dob } = req.body;
 
-  const newUser = await user.findOne({ email });
+  const newUser = await User.findOne({ email });
   if (!newUser) {
-    await user.create({ name, email, dob });
+    await User.create({ name, email, dob });
     return res
       .status(200)
-      .json({ message: "user created successfully", userId: user._id });
+      .json({ message: "user created successfully", userId: User._id });
   } else {
     return res.status(400).json({ message: "user already registered" });
   }

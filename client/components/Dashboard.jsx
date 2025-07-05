@@ -4,10 +4,14 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import Popup from "./popup";
 
 const Dashboard = () => {
   const { userId } = useParams();
   const [userInfo, setUserInfo] = useState("");
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [noteContent, setNoteContent] = useState("");
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -36,6 +40,7 @@ const Dashboard = () => {
           </button>
         </div>
       </nav>
+
       <div className="flex flex-col sm:items-center justify-center">
         <div className="m-5 py-6 px-4 sm:mx-20 sm:my-15 sm:px-5 sm:py-10 border border-gray-300 shadow-xl rounded-md text-start sm:w-1/2 ">
           <h1 className="text-2xl sm:text-4xl font-bold mb-5">
@@ -46,7 +51,12 @@ const Dashboard = () => {
             Email: {userInfo.email}
           </p>
         </div>
-        <button className="px-5 py-2 m-5 text-lg font-medium bg-blue-600 text-white sm:text-xl rounded-lg sm:px-10 sm:py-3 sm:font-semibold cursor-pointer">
+        <button
+          onClick={() => {
+            setShowPopup(true);
+          }}
+          className="px-5 py-2 m-5 text-lg font-medium bg-blue-600 text-white sm:text-xl rounded-lg sm:px-10 sm:py-3 sm:font-semibold cursor-pointer"
+        >
           Create Note
         </button>
       </div>
@@ -66,6 +76,45 @@ const Dashboard = () => {
           </div>
         )}
       </div>
+      {showPopup && (
+        <Popup
+          noteContent={noteContent}
+          setNoteContent={setNoteContent}
+          onClose={() => {
+            setShowPopup(false);
+            setNoteContent("");
+          }}
+          onCreate={async () => {
+            const trimmed = noteContent.trim();
+            if (!trimmed) {
+              alert("Note cannot be empty.");
+              return;
+            }
+
+            try {
+              await axios.post(
+                `${import.meta.env.VITE_API_BASE_URL}/api/notes/create`,
+                {
+                  content: trimmed,
+                  userId: userId,
+                }
+              );
+
+              alert("Note created successfully");
+              setShowPopup(false);
+              setNoteContent("");
+
+              const res = await axios.get(
+                `${import.meta.env.VITE_API_BASE_URL}/api/dashboard/${userId}`
+              );
+              setUserInfo(res.data);
+            } catch (err) {
+              console.error("Note creation failed:", err);
+              alert("Error creating note.");
+            }
+          }}
+        />
+      )}
     </div>
   );
 };

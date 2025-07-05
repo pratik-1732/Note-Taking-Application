@@ -1,19 +1,19 @@
 import express from "express";
-import user from "../models/user.js";
+import User from "../models/user.js";
 
 const getDashboard = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const displayUser = await user.findById(userId).populate("notes");
-
+    const displayUser = await User.findById(userId).populate("notes");
+    console.log("Fetched user:", displayUser);
     if (!displayUser)
       return res.status(404).json({ message: "user not found." });
 
     return res.status(200).json({
       name: displayUser.name,
       email: displayUser.email,
-      notes: displayUser.notes || [],
+      notes: displayUser.notes,
     });
   } catch (error) {
     console.error("Dashboard Error:", error.message);

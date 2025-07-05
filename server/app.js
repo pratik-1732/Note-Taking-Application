@@ -10,6 +10,7 @@ import cors from "cors";
 import authRoute from "./routes/auth.js";
 import dashboardRoute from "./routes/dashboard.js";
 import otpRoute from "./routes/otpRoutes.js";
+import noteRote from "./routes/noteRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/auth", authRoute);
 app.use("/api/dashboard", dashboardRoute);
 app.use("/api/otp", otpRoute);
+app.use("/api/notes", noteRote);
 
 app.get("/", (req, res) => {
   res.send("hello to the server");

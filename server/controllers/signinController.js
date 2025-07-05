@@ -1,10 +1,10 @@
 import express from "express";
-import user from "../models/user.js";
+import User from "../models/user.js";
 
 const signinUser = async (req, res) => {
   const { email } = req.body;
 
-  const loggedUser = await user.findOne({ email });
+  const loggedUser = await User.findOne({ email });
   if (loggedUser) {
     return res
       .status(200)

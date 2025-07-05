@@ -1,7 +1,7 @@
 import express from "express";
 import Otp from "../models/otp.js";
 import sendOtp from "../utils/mailer.js";
-import user from "../models/user.js";
+import User from "../models/user.js";
 
 function generateOtp() {
   return Math.floor(Math.random() * 900000).toString();
@@ -9,7 +9,7 @@ function generateOtp() {
 
 const sendOtpToMailSignin = async (req, res) => {
   const { email } = req.body;
-  const userLoggedIn = await user.findOne({});
+  const userLoggedIn = await User.findOne({});
   if (userLoggedIn) {
     const otp = generateOtp();
 
