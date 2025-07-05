@@ -6,7 +6,7 @@ const getDashboard = async (req, res) => {
 
   try {
     const displayUser = await user.findById(userId).populate("notes");
-    console.log(userId, typeof userId, displayUser);
+
     if (!displayUser)
       return res.status(404).json({ message: "user not found." });
 
