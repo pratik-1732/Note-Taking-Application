@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import Popup from "./popup";
+import Popup from "./Popup";
 
 const Dashboard = () => {
   const { userId } = useParams();
