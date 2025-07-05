@@ -41,6 +41,24 @@ const Dashboard = () => {
       alert("Failed to logout");
     }
   };
+
+  const handleDeleteNote = async (noteId) => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/api/notes/${noteId}`
+      );
+      alert("Note deleted successfully");
+
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/dashboard/${userId}`
+      );
+      setUserInfo(res.data);
+    } catch (err) {
+      console.error("Error deleting note:", err);
+      alert("Failed to delete note");
+    }
+  };
+
   return (
     <div>
       <nav className="flex justify-between items-center py-3 px-4 sm:py-5 sm:px-15 ">
@@ -88,7 +106,11 @@ const Dashboard = () => {
         ) : (
           <div className="flex flex-col gap-4 sm:grid sm:grid-cols-3 sm:gap-5">
             {userInfo.notes.map((data, index) => (
-              <Cards key={data._id || index} data={data} />
+              <Cards
+                key={data._id || index}
+                data={data}
+                onDelete={handleDeleteNote}
+              />
             ))}
           </div>
         )}
