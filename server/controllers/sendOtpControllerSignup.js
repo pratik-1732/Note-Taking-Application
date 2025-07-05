@@ -6,7 +6,7 @@ function generateOtp() {
   return Math.floor(Math.random() * 900000).toString();
 }
 
-const sendOtpToMail = async (req, res) => {
+const sendOtpToMailSignup = async (req, res) => {
   const { email } = req.body;
   const otp = generateOtp();
 
@@ -24,4 +24,4 @@ const sendOtpToMail = async (req, res) => {
   }
 };
 
-export default sendOtpToMail;
+export default sendOtpToMailSignup;

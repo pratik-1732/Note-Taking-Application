@@ -3,6 +3,7 @@ import Otp from "../models/otp.js";
 
 const verifyOtp = async (req, res) => {
   const { email, otp } = req.body;
+
   if (!email || !otp) {
     return res.status(400).json({ message: "Email and OTP required" });
   }

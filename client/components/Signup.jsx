@@ -54,7 +54,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/otp/send`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/otp/signup/send`,
         {
           email,
         }
@@ -162,15 +162,7 @@ const Signup = () => {
                 required
               />
             </div>
-            <div className="flex justify-center mb-3 sm:mb-4">
-              <button
-                type="button"
-                onClick={otpSend}
-                className="bg-blue-500 hover:bg-blue-600 cursor-pointer text-white text-base font-medium px-2 py-1  rounded-md"
-              >
-                Send OTP
-              </button>
-            </div>
+
             <div className="mb-4 relative">
               <input
                 type="text"
@@ -183,11 +175,18 @@ const Signup = () => {
               />
               <EyeOff className="absolute top-3 right-3 text-gray-400 w-5 h-5 cursor-pointer" />
             </div>
-            <div className="flex justify-center mb-3 sm:mb-4">
+            <div className="flex justify-around items-center mb-3 sm:mb-4">
+              <button
+                type="button"
+                onClick={otpSend}
+                className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white text-base font-medium px-3 py-1  rounded-md"
+              >
+                Send OTP
+              </button>
               <button
                 type="button"
                 onClick={otpVerify}
-                className="bg-blue-500 hover:bg-blue-600 cursor-pointer text-white text-base  font-medium px-2 py-1  rounded-md"
+                className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white text-base  font-medium px-3 py-1  rounded-md"
               >
                 Verify OTP
               </button>

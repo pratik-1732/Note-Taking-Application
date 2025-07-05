@@ -16,7 +16,7 @@ const sendOtp = async (toEmail, otp) => {
     from: process.env.GMAIL_USER,
     to: toEmail,
     subject: "OTP Verification Code",
-    text: `Your OTP for Note Taking application is ${otp}. Please enter it correctly and do not share it. It is valid for one minute.`,
+    text: `Your OTP for Note Taking application is ${otp}. Please enter it correctly and do not share it. It is valid for two minute.`,
   };
   await transporter.sendMail(mailOptions);
 };
