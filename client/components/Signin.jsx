@@ -21,8 +21,7 @@ const Signin = () => {
         { email }
       );
 
-      alert(res.data.message);
-      navigate("/dashboard");
+      navigate(`/dashboard/${res.data.userId}`);
     } catch (err) {
       console.log("login failed", err.message);
       alert("Login failed");
@@ -37,7 +36,7 @@ const Signin = () => {
     }
 
     try {
-      const response = await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/otp/signin/send`,
         {
           email,
@@ -46,8 +45,8 @@ const Signin = () => {
       alert("OTP sent successfully. Check your mail.");
     } catch (error) {
       if (
-        error.response?.status === 404 &&
-        error.response.data?.message === "Sign up first"
+        error.res?.status === 404 &&
+        error.res.data?.message === "Sign up first"
       ) {
         alert("Sign up first.");
       } else {
@@ -66,14 +65,14 @@ const Signin = () => {
     }
 
     try {
-      const response = await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/otp/verify`,
         {
           email,
           otp,
         }
       );
-      if (response.data.isVerified) {
+      if (res.data.isVerified) {
         setIsVerified(true);
         alert("OTP verified successfully");
       }

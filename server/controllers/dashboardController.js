@@ -1,7 +1,24 @@
 import express from "express";
+import user from "../models/user.js";
 
-const getDashboard = (req, res) => {
-  res.status(200).json({ message: "dashboard page" });
+const getDashboard = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const displayUser = await user.findById(userId).populate("notes");
+    console.log(userId, typeof userId, displayUser);
+    if (!displayUser)
+      return res.status(404).json({ message: "user not found." });
+
+    return res.status(200).json({
+      name: displayUser.name,
+      email: displayUser.email,
+      notes: displayUser.notes || [],
+    });
+  } catch (error) {
+    console.error("Dashboard Error:", error.message);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 export default getDashboard;

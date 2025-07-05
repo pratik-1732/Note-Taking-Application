@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import note from "./note.js";
 
 const userSchema = mongoose.Schema({
   name: {
@@ -13,6 +14,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "note" }],
 });
 
 const user = mongoose.model("user", userSchema);

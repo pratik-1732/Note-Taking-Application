@@ -1,7 +1,28 @@
 import React from "react";
 import Cards from "./Cards";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+  const { userId } = useParams();
+  const [userInfo, setUserInfo] = useState("");
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/dashboard/${userId}`
+        );
+        console.log(res.data);
+        setUserInfo(res.data);
+      } catch (error) {
+        console.error("Error fetching dashboard info:", error);
+      }
+    };
+    fetchUserInfo();
+  }, [userId]);
   return (
     <div>
       <nav className="flex justify-between items-center py-3 px-4 sm:py-5 sm:px-15 ">

@@ -3,6 +3,6 @@ import getDashboard from "../controllers/dashboardController.js";
 
 const router = express.Router();
 
-router.get("/", getDashboard);
+router.get("/:userId", getDashboard);
 
 export default router;

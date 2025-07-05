@@ -6,7 +6,9 @@ const signinUser = async (req, res) => {
 
   const loggedUser = await user.findOne({ email });
   if (loggedUser) {
-    return res.status(200).json({ message: "user logged in successfully" });
+    return res
+      .status(200)
+      .json({ message: "user logged in successfully", userId: loggedUser._id });
   } else {
     return res.status(400).json({ message: "User does not exist." });
   }

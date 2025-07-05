@@ -29,7 +29,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/auth/signup`,
         {
           name,
@@ -42,7 +42,7 @@ const Signup = () => {
       setEmail("");
       setDob("");
       setOtp("");
-      navigate("/dashboard");
+      navigate(`/dashboard/${res.data.userId}`);
     } catch (error) {
       console.error("signup Error:", error);
     }
@@ -57,7 +57,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/otp/signup/send`,
         {
           email,
@@ -79,14 +79,14 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/otp/verify`,
         {
           email,
           otp,
         }
       );
-      if (response.data.isVerified) {
+      if (res.data.isVerified) {
         setIsVerified(true);
         alert("OTP verified successfully");
       }
