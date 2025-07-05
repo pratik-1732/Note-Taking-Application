@@ -1,12 +1,86 @@
-# React + Vite
+# 📝 Note Taking App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of the Note Taking App built using **React.js**. It allows users to sign up, sign in, view their dashboard, and create notes via a popup interface.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🧑‍💻 User Dashboard
+- 📝 Create Notes via Popup
+- 📱 Responsive Design using Tailwind CSS
+- 🔗 Axios for API requests
 
-## Expanding the ESLint configuration
+## 💠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React.js
+- Tailwind CSS
+- Axios
+- React Router DOM
+
+---
+
+## ▶️ Run Locally
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/note-taking-app.git
+```
+
+### 2. Navigate to the client folder:
+
+```bash
+cd note-taking-app/client
+```
+
+### 3. Install dependencies:
+
+```bash
+npm install
+```
+
+### 4. Setup Environment Variables
+
+Create a `.env` file in the `frontend` directory:
+
+> ✅ Make sure your backend is running on the same port as defined in .env file.
+
+### 5. Start the development server:
+
+```bash
+npm run dev
+```
+
+Visit the app at:
+📍 [http://localhost:5173](http://localhost:5173)
+
+---
+
+## 📂 Folder Structure
+
+```
+frontend/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Dashboard.jsx
+│   │   ├── Cards.jsx
+│   │   └── Popup.jsx
+│   ├── App.jsx
+│   ├── main.jsx
+├── .env
+├── index.css
+├── tailwind.config.js
+```
+
+---
+
+## 📌 Notes
+
+- Ensure that the backend is running **before** you try to fetch dashboard data.
+- If the API doesn't respond, check CORS configuration on the backend.
+
+---
+
+## 💬 Feedback
+
+If you find a bug or have a feature request, feel free to open an issue or pull request. 😊
