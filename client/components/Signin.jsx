@@ -164,7 +164,7 @@ const Signin = () => {
               <p className=" text-base sm:text-lg text-gray-600 font-normal">
                 Need an account?
                 <button
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/signup")}
                   className="text-blue-600 hover:text-blue-700 font-medium ml-1 underline cursor-pointer"
                 >
                   Create one
